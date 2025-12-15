@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Spam Detection Result{% endblock %}
+
+{% block content %}
+<style>
+  .result-container {
+    background: linear-gradient(135deg, #001f3f, #002b5e);
+    color: #fff;
+    text-align: center;
+    padding: 80px 10%;
+    border-radius: 0 0 40px 40px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .result-container h1 {
+    font-size: 48px;
+    color: #ffcc00;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .result-container p {
+    font-size: 18px;
+    color: #cce7ff;
+    margin-bottom: 40px;
+  }
+
+  .result-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+
+  .result-card {
+    background: #002b5e;
+    border-radius: 15px;
+    width: 280px;
+    padding: 30px 20px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 184, 255, 0.2);
+  }
+
+  .result-card:hover {
+    background: #003a80;
+    transform: translateY(-6px);
+    box-shadow: 0 0 20px rgba(0, 184, 255, 0.5);
+  }
+
+  .model-name {
+    font-size: 22px;
+    color: #00b8ff;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .prediction {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .prediction.spam {
+    color: #ff4d4d;
+  }
+
+  .prediction.not-spam {
+    color: #00ff99;
+  }
+
+  .btn-back {
+    background-color: #00b8ff;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 40px;
+    display: inline-block;
+  }
+
+  .btn-back:hover {
+    background-color: #009ed6;
+  }
+</style>
+
+<section class="result-container">
+  <h1>Spam Detection Result</h1>
+  <p><strong>Analyzed Message:</strong> "{{ original }}"</p>
+
+  <div class="result-cards">
+    {% for model, res in result.items() %}
+      <div class="result-card">
+        <div class="model-name">{{ model }}</div>
+        <div class="prediction {% if res == 'Spam' %}spam{% else %}not-spam{% endif %}">
+          {{ res }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <a href="/" class="btn-back">← Back to Home</a>
+</section>
+{% endblock %}

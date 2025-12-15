@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+{% block title %}Check Email for Spam{% endblock %}
+
+{% block content %}
+<style>
+  .predict-section {
+    background: linear-gradient(135deg, #001f3f, #002b5e);
+    color: white;
+    padding: 100px 10%;
+    text-align: center;
+  }
+
+  .predict-section h1 {
+    color: #ffcc00;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .predict-section p {
+    color: #cce7ff;
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+
+  .predict-form {
+    background-color: #002b5e;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 184, 255, 0.2);
+  }
+
+  textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    resize: none;
+    background: #001f3f;
+    color: #fff;
+    box-shadow: inset 0 0 8px rgba(0, 184, 255, 0.3);
+    margin-bottom: 30px;
+  }
+
+  textarea:focus {
+    box-shadow: 0 0 10px rgba(0, 184, 255, 0.7);
+  }
+
+  .btn-analyze {
+    background-color: #00b8ff;
+    color: white;
+    padding: 12px 28px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn-analyze:hover {
+    background-color: #009ed6;
+    transform: translateY(-2px);
+  }
+
+  /* HOW OUR AI DETECTS SECTION */
+  .ai-detect {
+    background-color: #0b1e39;
+    padding: 80px 10%;
+    text-align: center;
+  }
+
+  .ai-detect h2 {
+    color: #ffcc00;
+    font-size: 36px;
+    margin-bottom: 50px;
+    font-weight: 700;
+  }
+
+  .ai-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .ai-card {
+    background-color: #002b5e;
+    padding: 30px 25px;
+    border-radius: 15px;
+    width: 300px;
+    box-shadow: 0 0 15px rgba(0, 184, 255, 0.2);
+    transition: 0.3s;
+  }
+
+  .ai-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 184, 255, 0.4);
+  }
+
+  .ai-card h3 {
+    color: #00b8ff;
+    margin-bottom: 10px;
+    font-size: 22px;
+  }
+
+  .ai-card p {
+    color: #d4e4f7;
+    line-height: 1.6;
+  }
+
+  /* FAQ SECTION */
+  .faq {
+    background-color: #001f3f;
+    padding: 80px 10%;
+    color: white;
+    text-align: left;
+  }
+
+  .faq h2 {
+    text-align: center;
+    color: #ffcc00;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 50px;
+  }
+
+  /* Accordion-style FAQ */
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  details {
+    background-color: #002b5e;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 20px 25px;
+    box-shadow: 0 0 10px rgba(0, 184, 255, 0.15);
+    transition: 0.3s ease;
+  }
+
+  details summary {
+    font-size: 18px;
+    font-weight: 600;
+    color: #00b8ff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+  }
+
+  details summary::after {
+    content: "▼";
+    font-size: 14px;
+    color: #ffcc00;
+    transition: transform 0.3s;
+  }
+
+  details[open] summary::after {
+    transform: rotate(180deg);
+  }
+
+  details p {
+    color: #d4e4f7;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+
+  details:hover {
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 768px) {
+    .ai-steps {
+      flex-direction: column;
+      align-items: center;
+    }
+    .ai-card {
+      width: 100%;
+      max-width: 350px;
+    }
+  }
+</style>
+
+<section class="predict-section">
+  <h1>Check Email for Spam</h1>
+  <p>Paste your email text below and let our AI-powered spam detector analyze it instantly.</p>
+
+  <form action="{{ url_for('predict') }}" method="post" class="predict-form">
+    <textarea name="message" rows="8" placeholder="Enter your email or message here..."></textarea>
+    <br>
+    <button type="submit" class="btn-analyze">Analyze Now</button>
+  </form>
+</section>
+
+<!-- HOW OUR AI DETECTS -->
+<section class="ai-detect">
+  <h2>How Our AI Detects Spam?</h2>
+  <div class="ai-steps">
+    <div class="ai-card">
+      <h3>1️⃣ Data Preprocessing</h3>
+      <p>Our system cleans and tokenizes the email text, removing unnecessary words, symbols, and links for better understanding.</p>
+    </div>
+    <div class="ai-card">
+      <h3>2️⃣ Feature Extraction</h3>
+      <p>It converts the cleaned message into numerical values using techniques like TF-IDF, enabling the model to understand text meaning.</p>
+    </div>
+    <div class="ai-card">
+      <h3>3️⃣ Machine Learning Prediction</h3>
+      <p>The trained ML model (using algorithms like Naive Bayes or Logistic Regression) classifies the message as <strong>Spam</strong> or <strong>Not Spam</strong> instantly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="faq">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-container">
+    <details>
+      <summary>📩 How accurate is your spam detector?</summary>
+      <p>Our model achieves over <strong>95% accuracy</strong> on real-world datasets, ensuring precise spam filtering for various message types.</p>
+    </details>
+
+    <details>
+      <summary>🔒 Is my data stored after analysis?</summary>
+      <p>No, your message data is not stored or shared. It’s analyzed temporarily during processing to protect your privacy.</p>
+    </details>
+
+    <details>
+      <summary>🤖 What type of algorithm is used?</summary>
+      <p>We use advanced <strong>machine learning algorithms</strong> such as Naive Bayes and Logistic Regression for efficient spam classification.</p>
+    </details>
+
+    <details>
+      <summary>⚡ How fast is the detection process?</summary>
+      <p>The AI engine delivers results within seconds, even for long email content, ensuring a smooth and real-time experience.</p>
+    </details>
+  </div>
+</section>
+
+{% endblock %}
+

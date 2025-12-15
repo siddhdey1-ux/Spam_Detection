@@ -1,0 +1,388 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home - Spam Detection</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0b1e39;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)),
+        url("https://thumbs.dreamstime.com/b/person-holds-smartphonhe-receiving-digital-alert-spam-emails-image-features-stylized-email-envelope-red-389351035.jpg");
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      margin: 0;
+      padding: 0 80px;
+      box-sizing: border-box;
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+
+    .hero h1 {
+      font-size: 68px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 35px;
+      line-height: 1.7;
+      color: #e3e9f5;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-right: 12px;
+      display: inline-block;
+    }
+
+    .btn-orange {
+      background-color: #ff9800;
+      color: white;
+    }
+    .btn-orange:hover {
+      background-color: #e68a00;
+      transform: scale(1.05);
+    }
+
+    .btn-blue {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-blue:hover {
+      background-color: #339cff;
+      transform: scale(1.05);
+    }
+
+    /* FEATURES SECTION */
+    .features {
+      background-color: #f8f9fa;
+      color: black;
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .features h2 {
+      font-size: 38px;
+      color: #0056b3;
+      margin-bottom: 50px;
+    }
+
+    .feature-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .card {
+      background-color: white;
+      color: black;
+      border-radius: 15px;
+      width: 320px;
+      padding: 30px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 70px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: #ff7b00;
+      margin-bottom: 10px;
+    }
+
+    /* TECHNOLOGIES SECTION */
+    .technologies {
+      background-color: #0f3057;
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .technologies h2 {
+      font-size: 36px;
+      color: #00aaff;
+      margin-bottom: 50px;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      justify-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .tech-card {
+      background-color: #112f56;
+      padding: 25px;
+      border-radius: 15px;
+      color: #c9d6e5;
+      transition: 0.4s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .tech-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .tech-card img {
+      width: 60px;
+      margin-bottom: 10px;
+    }
+
+    .tech-card h4 {
+      color: #ff7b00;
+      margin-bottom: 10px;
+    }
+
+    /* TESTIMONIALS SECTION */
+    .testimonials {
+      background-color: #10294a;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .testimonials h2 {
+      font-size: 36px;
+      color: #00aaff;
+      margin-bottom: 50px;
+    }
+
+    .testimonial-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .testimonial-wrapper {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .testimonial-group {
+    display: flex;
+    justify-content: center;
+    flex: 0 0 100%;
+  }
+
+  .testimonial {
+    background-color: #13335c;
+    color: white;
+    border-radius: 15px;
+    margin: 0 10px;
+    padding: 25px;
+    box-sizing: border-box;
+    min-height: 180px;
+    flex: 1;
+    max-width: 300px;
+  }
+
+  .arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #00aaff;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 10px 15px;
+    transition: 0.3s;
+  }
+
+  .arrow-btn:hover {
+    background-color: #007acc;
+  }
+
+  .prev { left: -50px; }
+  .next { right: -50px; }
+
+  @media (max-width: 768px) {
+    .testimonial-group {
+      flex-direction: column;
+      align-items: center;
+    }
+    .testimonial {
+      max-width: 90%;
+      margin-bottom: 20px;
+    }
+    .arrow-btn {
+      display: none;
+    }
+  }
+</style>
+</head>
+
+<body>
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Spam Detection</h1>
+      <p>Protect your business with advanced AI filtering for incoming and outgoing emails. Prevent phishing, fraud, and unwanted threats with smart accuracy.</p>
+      <a href="{{ url_for('predict') }}" class="btn btn-orange">Check Spam</a>
+      <a href="/contact" class="btn btn-blue">Contact Us</a>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <h2>Why Choose Our Spam Detector?</h2>
+    <div class="feature-cards">
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712034.png" alt="AI">
+        <h3>AI-Powered Analysis</h3>
+        <p>Utilizes deep learning to identify spam and phishing attempts instantly.</p>
+      </div>
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Realtime">
+        <h3>Realtime Protection</h3>
+        <p>Instant detection and blocking of malicious content to protect you from phishing and spam emails.</p>
+      </div>
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2258/2258935.png" alt="Dashboard">
+        <h3>Interactive Dashboard</h3>
+        <p>View live statistics, monitor mail flow, and track spam detection performance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNOLOGIES USED -->
+  <section class="technologies">
+    <h2>Technologies We Used</h2>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/919/919825.png" alt="Python">
+        <h4>Python</h4>
+        <p>Used for backend logic and machine learning models.</p>
+      </div>
+      <div class="tech-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="Flask">
+        <h4>Flask</h4>
+        <p>Lightweight web framework for app development.</p>
+      </div>
+      <div class="tech-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML">
+        <h4>HTML</h4>
+        <p>For structure and layout of all web pages.</p>
+      </div>
+      <div class="tech-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS">
+        <h4>CSS</h4>
+        <p>For modern and responsive web styling.</p>
+      </div>
+      <div class="tech-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png" alt="Scikit-Learn">
+        <h4>Scikit-Learn</h4>
+        <p>Machine learning library for spam detection model.</p>
+      </div>
+      <div class="tech-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906324.png" alt="Pandas">
+        <h4>Pandas</h4>
+        <p>Used for data preprocessing and analysis.</p>
+      </div>
+    </div>
+  </section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <h2>What Our Users Say?</h2>
+  <div class="testimonial-container">
+    <button class="arrow-btn prev" onclick="changeSlide(-1)">‹</button>
+
+    <div class="testimonial-wrapper" id="testimonialWrapper">
+      <!-- Group 1 -->
+      <div class="testimonial-group">
+        <div class="testimonial">
+          <p>"Absolutely amazing tool! It saved our business emails."</p>
+          <h4>- Rahul Sharma</h4>
+        </div>
+        <div class="testimonial">
+          <p>"Spam filtering accuracy is top-notch. Highly recommend!"</p>
+          <h4>- Neha Verma</h4>
+        </div>
+        <div class="testimonial">
+          <p>"Smooth interface and super easy to use."</p>
+          <h4>- Arjun Patel</h4>
+        </div>
+      </div>
+
+      <!-- Group 2 -->
+      <div class="testimonial-group">
+        <div class="testimonial">
+          <p>"The best spam detector I’ve used so far!"</p>
+          <h4>- Sneha Gupta</h4>
+        </div>
+        <div class="testimonial">
+          <p>"Reliable and accurate — 5 stars!"</p>
+          <h4>- Aman Kumar</h4>
+        </div>
+        <div class="testimonial">
+          <p>"Truly impressive AI model for mail classification."</p>
+          <h4>- Priya Singh</h4>
+        </div>
+      </div>
+    </div>
+
+    <button class="arrow-btn next" onclick="changeSlide(1)">›</button>
+  </div>
+</section>
+
+<script>
+  let currentSlide = 0;
+  const wrapper = document.getElementById("testimonialWrapper");
+  const groups = document.querySelectorAll(".testimonial-group");
+  const totalGroups = groups.length;
+
+  // Each group takes full container width
+  wrapper.style.width = `${100 * totalGroups}%`;
+  groups.forEach(group => {
+    group.style.flex = `0 0 ${100 / totalGroups}%`;
+  });
+
+  function changeSlide(direction) {
+    currentSlide = (currentSlide + direction + totalGroups) % totalGroups;
+    wrapper.style.transform = `translateX(-${currentSlide * (100 / totalGroups)}%)`;
+  }
+</script>
+</body>
+</html>
+{% endblock %}

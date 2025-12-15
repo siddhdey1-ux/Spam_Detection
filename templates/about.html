@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+{% block title %}About - Spam Detection{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #001a33, #000814);
+    color: white;
+    overflow-x: hidden;
+  }
+
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    min-height: 100vh;
+    padding: 100px 0 60px 0;
+  }
+
+  .about-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .about-header h1 {
+    font-size: 52px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #00b8ff, #ff00cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .about-header p {
+    font-size: 20px;
+    color: #ccc;
+    max-width: 800px;
+    margin: 20px auto 0;
+    line-height: 1.8;
+  }
+
+  .importance-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 40px;
+  }
+
+  .importance-image img {
+    width: 450px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0, 184, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .importance-image img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 60px rgba(0, 184, 255, 0.6);
+  }
+
+  .importance-text {
+    flex: 1;
+    min-width: 350px;
+  }
+
+  .importance-text h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #00b8ff;
+    margin-bottom: 25px;
+  }
+
+  .importance-text p {
+    font-size: 18px;
+    line-height: 1.9;
+    color: #eaeaea;
+    margin-bottom: 20px;
+  }
+
+  .about-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 80px auto 0;
+  }
+
+  .feature-box {
+    flex: 1 1 calc(33% - 25px);
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 184, 255, 0.25);
+    transition: all 0.3s ease;
+  }
+
+  .feature-box:hover {
+    background: rgba(0, 184, 255, 0.18);
+    transform: translateY(-8px);
+    box-shadow: 0 0 30px rgba(0, 184, 255, 0.5);
+  }
+
+  .feature-box h3 {
+    color: #00b8ff;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .feature-box p {
+    font-size: 17px;
+    color: #ddd;
+  }
+
+  .models-section {
+    text-align: center;
+    margin: 100px auto 40px;
+    max-width: 1200px;
+    padding: 0 20px;
+  }
+
+  .models-section h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #00b8ff;
+    margin-bottom: 50px;
+  }
+
+  .model-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .model-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    flex: 1 1 calc(33% - 30px);
+    max-width: 350px;
+    box-shadow: 0 0 25px rgba(0, 184, 255, 0.25);
+    transition: all 0.3s ease;
+  }
+
+  .model-card:hover {
+    background: rgba(0, 184, 255, 0.18);
+    transform: translateY(-8px);
+    box-shadow: 0 0 35px rgba(0, 184, 255, 0.5);
+  }
+
+  .model-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(0,184,255,0.3);
+  }
+
+  .model-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #00b8ff;
+    margin-bottom: 15px;
+  }
+
+  .model-card p {
+    font-size: 16px;
+    color: #ddd;
+    line-height: 1.7;
+  }
+
+  /* OUR STORY & CORE VALUES (No Boxes, Bigger Fonts) */
+  .story-values {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 0 20px;
+    flex-wrap: wrap;
+  }
+
+  .story-box, .values-box {
+    flex: 1;
+    min-width: 350px;
+  }
+
+  .story-box h2, .values-box h2 {
+    color: #00b8ff;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .story-box p {
+    font-size: 20px;
+    color: #ddd;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .value-card {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+  }
+
+  .value-card i {
+    font-size: 34px;
+    color: #00b8ff;
+    margin-right: 20px;
+  }
+
+  .value-card span {
+    font-size: 20px;
+    color: #eee;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 900px) {
+    .importance-section {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .importance-image img {
+      width: 80%;
+    }
+
+    .importance-text h2 {
+      font-size: 32px;
+    }
+
+    .feature-box, .model-card, .story-box, .values-box {
+      flex: 1 1 100%;
+    }
+
+    .story-values {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<div class="overlay">
+  <div class="about-header">
+    <h1>About Our Spam Detection</h1>
+    <p>
+      Our <strong>Spam Detection System</strong> leverages the power of Artificial Intelligence and 
+      Machine Learning to protect users from fraudulent, malicious, and unwanted communications — ensuring 
+      safer inboxes and a more secure digital experience.
+    </p>
+  </div>
+
+  <section class="importance-section">
+    <div class="importance-image">
+      <img src="https://img.freepik.com/free-photo/cybersecurity-concept-collage-design_23-2151877155.jpg?semt=ais_hybrid&w=740&q=80" alt="Spam Detection Illustration">
+    </div>
+    <div class="importance-text">
+      <h2>Why is Spam Detection Important in Today’s World?</h2>
+      <p>
+        In today’s digital era, billions of emails and messages are exchanged daily, 
+        and a significant portion of them contain malicious links, scams, or phishing attempts. 
+        Spam detection plays a vital role in protecting users from cyber threats, data theft, 
+        and unwanted content. It ensures safe communication and builds digital trust 
+        by keeping harmful information out of your inbox.
+      </p>
+      <p>
+        By leveraging AI and machine learning, modern spam filters adapt and evolve, 
+        making the online world safer for everyone — from individuals to global organizations.
+      </p>
+    </div>
+  </section>
+
+  <h2 style="font-size:42px;font-weight:700;color:#00b8ff;text-align:center;margin:60px 0 40px 0;">
+    Why Is It Required?
+  </h2>
+
+  <div class="about-features">
+    <div class="feature-box">
+      <h3>Accuracy</h3>
+      <p>Detects spam precisely using AI-based natural language models.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Security</h3>
+      <p>Prevents phishing links, malware, and unsafe attachments effectively.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Speed</h3>
+      <p>Filters emails in real time to ensure seamless communication.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Automation</h3>
+      <p>Automatically improves accuracy by learning from new data patterns.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Transparency</h3>
+      <p>Provides insights into why messages are flagged as spam or safe.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Scalability</h3>
+      <p>Designed to handle large datasets and enterprise-level operations.</p>
+    </div>
+  </div>
+
+  <section class="models-section">
+    <h2>Models We Use For Spam Detection</h2>
+    <div class="model-cards">
+      <div class="model-card">
+        <img src="https://static.vecteezy.com/system/resources/previews/030/967/450/non_2x/naive-bayes-icon-vector.jpg" alt="Naive Bayes Icon">
+        <h3>Naive Bayes</h3>
+        <p>A probabilistic model based on Bayes’ Theorem that calculates the likelihood of a message being spam.</p>
+      </div>
+      <div class="model-card">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAA9lBMVEX///8AAACNnKiCruP+ZG+HlaGIiIiEkp0PERJ8fHx4eHicnJyZmZmBrOH/Z3KBreInNETr6+uPj4/5+fkeKDTy8vIlMUAuLi69vb3a2trh4eGmpqbKysqzs7PR0dEhLDpsbGxiYmLAwMA2NjZJSUlAQEAaGhpRUVEsLCyqqqpHHB+yRk7qXGYZHB6Itu00NDTdV2HMUFmlQUhXV1cjIyNkbnc4S2IXHyhig6tymcdAVnCHNTs1FRcmDxGZPEOXp7RteYJLU1pXYGdRbI1jJysWCQosEROdv+mJNjx1LjM3PUJrd4CvucFlh7A/GRtoKS3BTFRFXHnWD3PGAAASs0lEQVR4nN2daUPaSheAARFxwwKlCKIXRFQUEar1arXaul1t39t6//+feQlzzmSWk2SSSVg8X1oghnmY5awzSaVU2W3tp/dbm9r770XqnTSTdn3aTUlGimlX3idiWyBsT7sxSchWWpStaTcnfqnkJcJ0ZdoNil1yQPYD/l2ZdoPiljqA3d99eaeLzQHDOslkMifsv3vTblK80oCO+z4i/A7/f1+Kv8WgTu9GhJmf7MVhedqtilP2GNSSA5hZgk5cm3ar4hSmDH9kmOB6Wpx2s+KUsxFQdREIM0DYnHar4pT6r/tfGS6oMXam3awYJSPLISPsTLtZ8UljUSZEjbE97YbFJZWMKqAx9t+LxvifRogaIzftpsUj9UWNMHP/bjRGZSvX0LvQ1RitaTcwQOq72w3fXhj7FD8pwl+A2JhUWyPIbq4aOJfa3ODW5JQRzmhAo1xbA1PTX61tpyVzjdQY3Qm221Dq3aYSkvDqxfI5+/yeIuTm6WwFNIqbK+20Lh6NLMHHSyThIny6PFkEP2mUTgk67+UCI6R0F86YxhhNvJYHnSO09bXGPsx7APKAxvQ7sb7dPKTJLj749SFE8X95EsJiU50wjyK7y1Wa7uPDv+v9C/Z/OnAG7b/zJATzND/NtWaHpvv76+V6v7+wsO7bCfDhEhPRdFuE9yZHWPaw8RsE3cnF5ZVD58i/7C0PbSGvunl3wbmXtU3So7TYbXWqp3srVHRvX8W7eLhaR7yFhf4De3eXvvOa8seIeK+8n+xKU15xf2QtXbIpD83RxFvgdGPCj+wTj3sX07LkF6UllEui2kIehh3lu3L8k9HEu+pLdI7ANPQMX68qKIxwSbGISrYQ5drm1tZujfxsU2nCvozYBLzLqwWNzpFL9rl34HPZgNB2jFZyoMoOS/qKVUurciotOWh1XZJ8C/2v7GP61xvL5nkA4b5tcF/KS2pWvLaQKL8oH8M0Yv/v8Yd532DLTrdUKu0RhJ3R+13reGJTbr6StOP4vx8fv+H/JeV94It4xT5rBrejRBDGsoIqgOpdYQQ9DbOFQvYzXCLptiIfZARi/9JjaOiSIwjjyJHKqXOtNWiv9ArZkRSO4aV0iyKfMzqiv8k2CcKKDijpni575/MYcIR4pF2REvPvV5quYNPw1KApCRHiUn10PBgc/4YXa9rnvSwQQicqfkIRfcKvaifCNDRpaTKEZVgpX7OjTipkX9mrc/cCNku/ccIhu0JdvlFlXCiEaLKZLPfJEMI0O0KAZ3XWePShYmRy4/JB7cMLalRPkhDiXG8FGcB1x2EhOsYLHtWfwBFueH3YUAA32PuHJm1JhhB+/AF0UXbAXrvmNXTyE6ylb4BCA35aVxca8JyMrMopEaZgmfw2KIwElYX0xRzwowaI09AoZj2lUepOsd/Xr0/4f9HI5BfwHuxzBwNMNi/PaRKE6kpzw16L00xxY9TvdecgAm48XHy9YozgOZ1NkbAM7b8uONqioGsLKkixLzggHPAvBFwfh9aYdRPoOSVP6Gr8t16Pa3x5YeiqhEIPE4Cf2BsOooHnlDyhGkQYi+Ikyi5wVdBtfA66Q/QjvuUgsml4bpamTsryViNBaaJytSj4HyWhubqaWP/gXnnZN/eckiRMtVRAqkH1caIs3+qK3auriY0P4o0uYRoaFlMkRqgiGqeUdTWx8Zd8K9AVhlWiyRHKA9W4uJpQEwogiGksN0HCVD0HSmM/ZxyW9JuDcoLNtJVJEjrRxO7qardmXpvjNwfXBK8/7Rns1iRZwrDizkH0JtY/uoBy1b3pPWeKUJ+DqOjT6dXxFW54yjgWOEuEXqaaCzhCPGMz27wUZoYI13RA3oOCCbpTaubCBKtnh1D36Dc+EoChZWYI/dSEVd35rBC6amIjXsBZIfQz1Sx3DswGIaEm4gK0JWyUmq1mbtevoKE8vqbU8DFszObgzuroPsubYfPSVoRrPAm47MVYRts0nc95MfqbaiBdXlrTCrf1zIJQrnehvbVd6RralNRNNV1NFKXSoVDZ9+iEah6e+lo1x0b5UMGmml48FKZ+OTKhHivTm7+tXaP3tG6qYaDJ7cG6dp8QS0VUQnVvrSNq7IsKR6nrhG6qYW5QmIMd/T7m+0GiEvJajqcbHrJWK5JbxDXK+NKHqEuIQ1SIO97wlL9/iUIMhJjjfTruZXtDDIjKHg124fPb6Jo3SLDJ0RUy+QKj1FUTuGJ/7mWzQ8hSmZdoRySEGcZyR4UsIMrFCND8b1l2zbPSMymv5MvGP46HpOWp0sPxfTCAbrwzKyJhU/jSkfTYSzk4BIUsA3ZNAfJPQpmWbqqNB+k/qVRNtCFgQeY5fxjxCROyYqdvBUy9/Bm/los12c0wO5PNsmqEPP+cmoMMkPw1eb74lr02i+lHJmR/9cgJX9gbRf2aV37Nq/zb62qCBkwxr/4ZfyiPqoa4CaF/eOuvQxMSgH0SMNVi40UlNA3URCSEOcZHIFtq9qVrWNDoiV/D5g+k2PTky8K/D1cLBCA2cYDz8A/xa8ZPCGUg1wXpZz2QroH5c1uQpk9z/BlhqjnG9gX1XWAePsorVtIrDa7gt04anhcayHYbGq7HBTFXvykBqt4EpeVQ975mnfsMYCk1ttui2jRo6998Pv58hO1V7Ax8+7d4jfOBribQ2CYT1y24+un2+PgP/qnpUhqZUPUsHFG9Cy3LC53k49GTToNueIfxLiL7Flp1ZbqtmYoH2jUHKX+PnlYBRLrV3NOPTFjW9pHprndFLQR2ihGMPHpFtJ8zxO5PCx9/T/rOc+pXrcg/Q7tCevQGQacV6T6hDkSwidOIBf/LHt5MSbgmlyIToFToXpNtoSy9FSoYZRWJKq4x3/Sw5B0cKkJe87TktMsv+eIfNix32azOr4SsQLeNl5ZrjcAEqHuNDmjWg3Cf+s5O+I1YsUWEi1vNw/z+QcnvFyaSL7EFfj0lJsKiuxR0PNPP4ZIvxXo9lk1J8RDK+t/j78MkX+qljtOW06b9oQCxEKph0T1qZhLJF685WBH0X9t2a0schLoFR9hUIZIvO3KkclW/WRiJgZAKi2o+Qog5qO2OtdtCFwMh3yn49HjDW+UFGGyqEZtRrI4DCk1Y2e1ubYsqsAzNuHFKtnFrhdKJYUy1M2JI2Cyq4QjL22iMLnP/DEKnz9mCGJOS3H2/5IsKyPclPr7ccmfQ5jigUIQ7oiG9LN8BQ6dZNlL3qXrRvwxy9LiMDh2HvoeO84QIFY+2wywo6FU17OZaqnryxcdUw/1E+INBpNxCLYYg1HJlzOVl/fqbE8JmQj6K/copdUsGBinGIDEEZKExzAn1jbvppvM+68MnNTiMfRiyTgZUBe7UyGbZa4tNn+aEekiCDR7Is2E4E4P3FQXQsE4GCIc8/pv2aVK8hDznezscvGGKyzloCWYnxL9xkEJqKHSdDBBiGgZzPhaLqTEhrHE3vfEeEdy5W3c19GOvIGzpZRMnvEcPcTW+2wbiyBYnVBsTQrt6BSkJ0U0JYaLHl1du1FQkwBAePQRiWaScB7gtzjY2JQTj81UZPc6lVDizJAGGiKrxwM51VgiUm+z3tSWE+XHM1zjWW+MYtb5vezwLiZ0vBh69a5Z+c61cG8M0DkLhlA4mVSno5GuqFWu1Wl0KvhDhX6uzRkOO0mtllDapVnUkQN9SroPxN563RJtFjsM6YnXCeNiVRtHruMaJFuuqxOxjqome855LUVbLZ+y8fGPCFrvwaLz/nC8BbgaosdLZT+erZ9tjU87EVFOOVxHmmhTErxpnmSwJsQbv+XgwGKIXKK9xlWIRPAoTU00J1EuIu7wb86u2R8WaW21E6ZXXjn+TOUgcnCF2Vm2t1a4e5Hbtj8I1JyQOF/PYiGvi0VPBnWQO9A/hPWm/epUOsRuZajhGn1/e3nDMG29lSopQ1VSHdPTEyFTD4M4flpsH3Z7IsbehohhSxW+LniJmyRfwVMDALoB2tQlWeErISNQqHtPY8lBShh49DAeMVWDow1IxkBI6mljbXitteR5RbOrRwzTktWoQrEhiIsa730L36D28CUb4pBIm8eyQWAnNky9YyaWEr1zztLy7mlte244hvxYnYYjkC8Tt0JAvQHUzqp86N3gOrNNrMRKGiaqh1/zG6n5hoamqd3KkZXnCaHyE4Tx69EVeeiN1+Chfplis+3aIsRGGrJOhzl+FQaqZ5HbnxMZFGCb5MhYixcScTX0bip2tExNhqOTLWLSKMOSgOtdGT8ZDGCr5AlJXdt1APg7t+6NhNjt4lT+LJEGE5frmVnc3QC2FS76gVKSBilFtWIJeCwXBErBJkfoTFvGM1c6W9QZJQjZ50KmJFin4jTdKrs7iIQa+hKK7dB5cCBRhk3J9K9dcKQmmC/jZt0pMz6JYwY9QWe48viXeTcqYe+LJurQyrOIk1NZzsr2h1YQR4UTyh2ogO03mmuM+KADysNxgHUa/VRAhlW+pastNpOSLn+DOTcxxQamChVvlSdiCdh69DYafcWOjuqRFSr7UVlfOznJdDwUAc+N5ZK+6J5+q+xziIMRo38v41Lws2MaK5o0yB7d5/P+MdIx4LOh6OLzF7JPNGQhehGAZ891psFNFsoGJoFPQEC1K1QDk+kE90sImNeNFCIlKHiqCbLMYf4pgqqmWWocYfUTNRyJnm7C0iV8gJYKpphflUWFuzbmwC6OaEmpHGUdRE4THRF2qIDatAINGKd/0B6EiPkqjqAn5CAkQakmtiXPR9rlaXoTQmj8eK00kUw1XmdtsodDDukO6UmYXrq1aJ9cCtcUt0xbQHpw2wcmXSm2rVFqVIsdS9ImvXfp+MCaVnUZjJ44HaAdq/Mdhb/CGRwpsKYBeyZdiDjfxNN1APUyvF9+T5uMXT0LqWUQQ9QrUg1KZJtfWOLVx8Qq5Jzt2Qj3khStpoKmm/GUbJi/k7bPK8pz0M119vCctrc0WhUA1oTkloNfh/UnkKgwJK0phy7IM6JV8IfbProh/+TaBjJohodIbTC8FJl/KWpQwDWoUZjaEYHhRXtKPBfOPRNXwiZGHOWWR8TTVMBr4+63XG6LSG5c0VGB9HZdpFgbgkSX+QNegaGJlZ6TX+BmrBqYaOEd/slIdalH4rvTT9fFxstUJYQglMTDVsAQBJ9urwEE9miX5B4BHqsXwSb6AX8mrmGG2sTgdkZKIw2qJjdDIo4eVlMfKek/iLTVFkrSqCEVolnzRCNPSLcWt3ZMBNCc09OiVmDXqBH5FQ1AmBxN5kKspobFHD++h4QIhLGHF3Dwba43DpvVzz8zEkNDcowdD6Mh52lgBC21ltV6p12rJrzAoZoQhki+4Xn67HQ6PcevZNJ/TbkQYyqOnnr08uR7TxYQw3AmxRA2C9bMwbcSAMGxUTX0C6FTHqAlh+KiaUod6Zl/JbCOBhK5Hb36WRUN8AmhiB14YShBhtARouQtK49T8yRZJSQBh9PNkio1ud7M+3QE6Fn/CKHUysya+hLw6n3ju0rwA+hJyzRb3Yf4TFR/CMlonH+cZ0I8QLcxPJpbM7IoPYUuZg/pB4nMhPoSA4/3Ml/kQb0KImv3Xn1c1ARJICA+qnUM1ARI4Sj/153gOOhKce3ro9/vzOgcd8SHEyN+nh/+Qb+6GaMqXkNjmOYeAvlabFqGeIcCKcVLO1/LuzChgffkwn68um7mevoTy3n+LE1TiFZ4a8Hx+jygBHrA7UE+TrpkwluVwv3pQFKNeGvdja3sGvHUmcoquHfjDm8RLyzND54haJxB0qnC8u2QnIETA2fNRWWOZO0KIrPz8KSDm/aqO5o4QFtKlzPcTgbHjnaqbX8JM5t5oOlKEFhtUkheBMLP4Q2Qs0dORImwvz7DsCYSZzHdxOh6SZQEU4TwIEGYyv8R394giubknVKbjimbIvQPCzJI4VDVDTiLMnFA3m0XJL2ZE+X4ofNap+xDek7ebQbnPKPJF/LTuTXh3f5KfAznRAEfywyVsexM6g3oOhOCTp+OmH+E8CzfkWu+VkE/H/fdLeAezUSCERL3H0J47udf7EOpBf95Nu20xyB2fh02BEGuvfy4tTkzkdtnfAWTJraiTyuOpRxEkLCdfyGaZS/5e5xM9Kbk8ntrBlbhwxMWIN9AQv4gmtVIKWfK8TXJShbEpG1shRLVLxTKztubt60/BS1za9SKTyD+vp2+Rp4LEk+9FHgmKPEdcQjmUkaMD/bUJLzd5dxwRuxyNBAnvpAl44F2MXNlczU1MpN3ZjVK4P1biNOIEPJyZ1IqViLG2JWmH5Mwk/yzFK166MvVC1rgECe9+iROwk/RO1AkK7BOviscunE9i/9TEhNAvazOV/bOXc4Wv+W4mIIq8V9z64YGzKEIRzLntwSczKnwDgX/yd55l/JTezprPBPw/w7DB0hCuZeAAAAAASUVORK5CYII=" alt="Logistic Regression Icon">
+        <h3>Logistic Regression</h3>
+        <p>Uses mathematical optimization to determine whether an email is spam or not. Simple yet powerful.</p>
+      </div>
+      <div class="model-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/993/993928.png" alt="Random Forest Icon">
+        <h3>Random Forest</h3>
+        <p>An ensemble learning method that combines multiple decision trees to enhance prediction accuracy.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="story-values">
+    <div class="story-box">
+      <h2>Our Story</h2>
+      <p>
+        Our journey began with a simple vision — to make digital communication safer and smarter. 
+        We noticed how spam, scams, and phishing attacks were affecting people every day, and we wanted to change that. 
+        Through continuous research and AI innovation, our system evolved into a reliable spam detection tool that learns and adapts with each message, ensuring users experience a secure and trustworthy online environment.
+      </p>
+    </div>
+
+    <div class="values-box">
+      <h2>Core Values</h2>
+      <div class="value-card">
+        <i class="fas fa-shield-alt"></i>
+        <span><strong>Integrity</strong> — We ensure honesty and transparency in every analysis.</span>
+      </div>
+      <div class="value-card">
+        <i class="fas fa-lightbulb"></i>
+        <span><strong>Innovation</strong> — Continuously evolving with modern AI advancements.</span>
+      </div>
+      <div class="value-card">
+        <i class="fas fa-heart"></i>
+        <span><strong>User Trust</strong> — Building systems that respect privacy and reliability.</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="https://kit.fontawesome.com/a2e0c9c66a.js" crossorigin="anonymous"></script>
+{% endblock %}
